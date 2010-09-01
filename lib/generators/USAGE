@@ -1,0 +1,8 @@
+Description:
+    Generates the appropriate database migration to add i18n fields
+
+Example:
+    rails generate has_foreign_language <language> [Model]
+
+    This will create:
+        db/migrate/yyyyMMddssssss_add_foreign_language_<language>_to_<model>.rb
