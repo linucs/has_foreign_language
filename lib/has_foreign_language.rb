@@ -9,13 +9,19 @@ module Factore
     
       def has_foreign_language(*args)
         args.each do |field|
+                    
           # Define the marker
-          define_method("has_foreign_language_#{field.to_s}?") { true }
+          eigenclass = class << self
+            self
+          end
+          eigenclass.class_eval do
+            define_method("has_foreign_language_#{field.to_s}?") { true }            
+          end
 
           # Define the getter
           define_method(field.to_s) do
             if self.class.columns.select {|c| c.name == "#{field}_#{I18n.locale}"}.length > 0
-              result = self.send("#{field}_#{I18n.locale}".to_sym)
+              self.send("#{field}_#{I18n.locale}".to_sym)
             else
               super()
             end

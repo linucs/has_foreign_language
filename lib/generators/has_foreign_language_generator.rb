@@ -24,7 +24,7 @@ class HasForeignLanguageGenerator < Rails::Generators::Base
   def list_of_columns(model, force = false, log = false)
     c = []
     k = model.classify.constantize
-    k.instance_methods(false).each do |m|
+    k.singleton_methods(false).each do |m|
       if m.to_s.match("^has_foreign_language_(.+)\\?$")
         if !k.columns_hash[$1].nil?
           c << k.columns_hash[$1] if !k.columns_hash.has_key? "#{$1}_#{lang.downcase}" || force
