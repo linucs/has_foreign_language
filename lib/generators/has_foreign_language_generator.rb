@@ -15,15 +15,15 @@ class HasForeignLanguageGenerator < Rails::Generators::Base
   
   def list_of_models(force = false)
     all_models = Dir.glob( File.join( Rails.root, 'app', 'models', '*.rb') ).map { |path| path[/.+\/(.+).rb/,1] }
-    all_models = all_models.select { |m| m.classify == name } if !name.blank?
-    ar_models = all_models.select { |m| m.classify.constantize < ActiveRecord::Base }
+    all_models = all_models.select { |m| m.camelize == name } if !name.blank?
+    ar_models = all_models.select { |m| m.camelize.constantize < ActiveRecord::Base }
     ar_models = ar_models.select { |m| list_of_columns(m, force).length > 0 }
     ar_models
   end
   
   def list_of_columns(model, force = false, log = false)
     c = []
-    k = model.classify.constantize
+    k = model.camelize.constantize
     k.singleton_methods(false).each do |m|
       if m.to_s.match("^has_foreign_language_(.+)\\?$")
         if !k.columns_hash[$1].nil?
@@ -37,6 +37,6 @@ class HasForeignLanguageGenerator < Rails::Generators::Base
   end
   
   def migration_name
-    "AddForeignLanguage#{lang.capitalize}To#{list_of_models.map { |m| m.classify }.join('And')}".slice(0, 127)
+    "AddForeignLanguage#{lang.capitalize}To#{list_of_models.map { |m| m.camelize }.join('And')}".slice(0, 127)
   end
 end
