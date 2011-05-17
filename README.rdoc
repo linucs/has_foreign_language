@@ -1,36 +1,36 @@
-h1. has_foreign_language
+= has_foreign_language
 
 has_foreign_language makes it easy to internationalize your database without mucking up your views and controllers or having to write a bunch of YAML.
 Just create fields for each locale you want to support in addition to your default field and has_foreign_language will automatically call the appropriate one based on the current locale.
 
-h2. Installation
+== Installation
 
-h4. Using Rails 3
+==== Using Rails 3
 
 Include the gem in your Gemfile:
 
-	@gem "has_foreign_language", :git => "git@github.com:dalpo/has_foreign_language.git"@@
+	gem "has_foreign_language", :git => "git@github.com:dalpo/has_foreign_language.git"
 
 Or as a plugin:
 
-	@rails plugin install git@github.com:dalpo/has_foreign_language.git@
+	rails plugin install git@github.com:dalpo/has_foreign_language.git
 
 
-h2. Example
+== Example
 
 First create your model:
 
-  @script/generate model books title:string title_fr:string title_de:string author:string@
+  script/generate model books title:string title_fr:string title_de:string author:string
 
 Then specify which fields need to be internationalized in your model:
 
-  @class Country < ActiveRecord::Base
+  class Country < ActiveRecord::Base
     has_foreign_language :title
-  end@@
+  end
 
 Now let's create a book in the console and see how this works:
 
-  @I18n.default_locale = "en"
+  I18n.default_locale = "en"
   b = Book.new(:title => "Slaughterhouse Five", :title_fr => "Abattoir Cinq", :title_de => "Schlachthof Fünf")
   b.title # Slaughterhouse Five
   
@@ -38,27 +38,27 @@ Now let's create a book in the console and see how this works:
   b.title # Abattoir Cinq
   
   I18n.locale = "de"
-  b.title # Schlachthof Fünf@@
+  b.title # Schlachthof Fünf
   
 Calling title on the model returns the appropriate column depending on which locale we're in.  This also works when we change the attribute:  
   
-  @I18n.locale = "de"
+  I18n.locale = "de"
   b.title = "Etwas Anderes"
-  b # Book id: nil, title: "Slaughterhouse Five", title_fr: "Abattoir Cinq", title_de: "Etwas Anderes"@@
+  b # Book id: nil, title: "Slaughterhouse Five", title_fr: "Abattoir Cinq", title_de: "Etwas Anderes"
 
 If you want to set or return the default language attribute while in a different locale, you can call it the way you would call any other. Assuming the default is "en", you would run:
 
-  @b.title_en # Slaughterhouse Five
-  b.title_en = "Something Else" # Book id: nil, title: "Something Else", title_fr: "Abattoir Cinq", title_de: "Etwas Anderes"@@
+  b.title_en # Slaughterhouse Five
+  b.title_en = "Something Else" # Book id: nil, title: "Something Else", title_fr: "Abattoir Cinq", title_de: "Etwas Anderes"
 
 
   
   
-h2. Validations
+== Validations
 
 Validations are easy.  Just run the validation on the default field name and it will apply to whatever locale you're in.
 
-  @class Country < ActiveRecord::Base
+  class Country < ActiveRecord::Base
     has_foreign_language :title
     validates_presence_of :title
   end
@@ -71,7 +71,7 @@ Validations are easy.  Just run the validation on the default field name and it 
   b.valid? # false
   
   b.title = "Slaughterhouse Five"
-  b.valid? # true@@
+  b.valid? # true
   
   
 Copyright (c) 2008 factor[e] design initiative, released under the MIT license
