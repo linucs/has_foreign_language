@@ -9,11 +9,11 @@ Just create fields for each locale you want to support in addition to your defau
 
 Include the gem in your Gemfile:
 
-	gem "has_foreign_language", :git => "git@github.com:dalpo/has_foreign_language.git"
+	gem "has_foreign_language", :git => "git://github.com/dalpo/has_foreign_language.git"
 
 Or as a plugin:
 
-	rails plugin install git@github.com:dalpo/has_foreign_language.git
+	rails plugin install git://github.com/dalpo/has_foreign_language.git
 
 
 == Example
