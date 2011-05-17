@@ -3,6 +3,19 @@ h1. has_foreign_language
 has_foreign_language makes it easy to internationalize your database without mucking up your views and controllers or having to write a bunch of YAML.
 Just create fields for each locale you want to support in addition to your default field and has_foreign_language will automatically call the appropriate one based on the current locale.
 
+h2. Installation
+
+h4. Using Rails 3
+
+Include the gem in your Gemfile:
+
+	gem "has_foreign_language", :git => "git@github.com:dalpo/has_foreign_language.git"
+
+Or as a plugin:
+
+	rails plugin install git@github.com:dalpo/has_foreign_language.git
+
+
 h2. Example
 
 First create your model:
