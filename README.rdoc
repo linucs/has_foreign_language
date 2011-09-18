@@ -20,13 +20,22 @@ Or as a plugin:
 
 First create your model:
 
-  script/generate model books title:string title_fr:string title_de:string author:string
+  rails g model book title:string description:text
 
 Then specify which fields need to be internationalized in your model:
 
   class Country < ActiveRecord::Base
-    has_foreign_language :title
+    has_foreign_language :title, :description
   end
+
+Finally generate a migration with internationalized fields:
+
+	Sintax:
+		rails g has_foreign_language <language> [Model]
+		
+	Example:
+		rails g has_foreign_language it
+	
 
 Now let's create a book in the console and see how this works:
 
