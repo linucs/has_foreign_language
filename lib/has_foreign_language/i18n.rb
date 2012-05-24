@@ -39,7 +39,7 @@ module HasForeignLanguage
 
         # Define the getter for default_locale
         define_method("#{field}_#{I18n.default_locale}") do
-          self.send(field.to_sym)
+          self[field.to_sym]
         end
 
         # Define the setter for default_locale
