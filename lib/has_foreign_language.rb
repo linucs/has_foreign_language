@@ -1,3 +1,6 @@
+module HasForeignLanguage
+end
+
 
 require 'has_foreign_language/i18n'
 require 'has_foreign_language/form_fix'
