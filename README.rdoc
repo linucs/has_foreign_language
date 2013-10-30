@@ -1,19 +1,43 @@
-h1. has_foreign_language
+= has_foreign_language
 
 has_foreign_language makes it easy to internationalize your database without mucking up your views and controllers or having to write a bunch of YAML.
 Just create fields for each locale you want to support in addition to your default field and has_foreign_language will automatically call the appropriate one based on the current locale.
 
-h2. Example
+== Installation
 
-First create your model:
+==== Using Rails 3
 
-  script/generate model books title:string title_fr:string title_de:string author:string
+Include the gem in your Gemfile:
 
-Then specify which fields need to be internationalized in your model:
+  gem "has_foreign_language", :git => "git://github.com/dalpo/has_foreign_language.git"
+
+Or as a plugin:
+
+  rails plugin install git://github.com/dalpo/has_foreign_language.git
+
+
+== Example
+
+=== First create your model:
+
+  rails g model book title:string description:text
+
+=== Then specify which fields need to be internationalized in your model:
 
   class Country < ActiveRecord::Base
-    has_foreign_language :title
+    has_foreign_language :title, :description
   end
+
+=== Finally generate a migration with internationalized fields:
+
+Sintax:
+
+  rails g has_foreign_language <language> [Model]
+
+Example:
+
+  rails g has_foreign_language it
+
 
 Now let's create a book in the console and see how this works:
 
@@ -41,7 +65,7 @@ If you want to set or return the default language attribute while in a different
 
   
   
-h2. Validations
+== Validations
 
 Validations are easy.  Just run the validation on the default field name and it will apply to whatever locale you're in.
 
